@@ -39,7 +39,9 @@ namespace CopyLog
 
             if (!System.IO.Directory.Exists(sourceDir))
             {
-                MessageBox.Show("Pasta origem não existe ou não foi possivel mapear o driver de rede Q: ");
+                MessageBox.Show("Pasta origem não existe ou não foi possivel mapear o driver de rede Q:");
+                labelStatus.Text = "Offline";
+                buttonLed.BackColor = Color.Red;
             }
             else
             {
