@@ -86,7 +86,6 @@ namespace CopyLog
                
                 return true;
             }
-
             //file is not locked
             return false;
         }
