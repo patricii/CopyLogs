@@ -28,6 +28,7 @@ namespace CopyLog
             var timer = new System.Threading.Timer((p) =>
             {
                 CopyFunction();
+
             }, null, startTimeSpan, periodTimeSpan);
         }
 
@@ -36,6 +37,7 @@ namespace CopyLog
             string sourceDir = @"Q:\quality_data\factory_nextest_log";
             string destinationDir = textBoxTo.Text;
             buttonLed.BackColor = Color.Green;
+            string measCode = textBoxMeas.Text;
 
             if (!System.IO.Directory.Exists(sourceDir))
             {
@@ -47,14 +49,18 @@ namespace CopyLog
             {
                 try
                 {
+                    FileInfo fileInfo;
                     if (!System.IO.Directory.Exists(destinationDir))
                     {
                         MessageBox.Show("Pasta destino não existe!!!");
                     }
                     else
                     {
-                        foreach (string file_name in Directory.GetFiles(sourceDir, "*.log_zip*", System.IO.SearchOption.AllDirectories))
+                        foreach (string file_name in Directory.GetFiles(sourceDir, "*" + measCode + "*", System.IO.SearchOption.AllDirectories))
                         {
+                            fileInfo = new FileInfo(file_name);
+
+                            if(!IsFileLocked(fileInfo))
                             File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
                         }
                         buttonLed.BackColor = Color.Red;
@@ -66,7 +72,24 @@ namespace CopyLog
                 }
             }
         }
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+               
+                return true;
+            }
 
+            //file is not locked
+            return false;
+        }
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
