@@ -9,6 +9,8 @@ namespace CopyLog
 {
     public partial class CopyLog : Form
     {
+        string sourceDir = @"Q:\quality_data\factory_nextest_log";
+
         public CopyLog()
         {
             InitializeComponent();
@@ -19,26 +21,7 @@ namespace CopyLog
             Environment.Exit(0);
         }
         private void buttonCopy_Click(object sender, EventArgs e)
-        {          
-            labelStatus.Text = "Running...Green Light means Copying Logs";
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromMinutes(0.3);
-
-            var timer = new System.Threading.Timer((p) =>
-            {
-                CopyFunction();
-
-            }, null, startTimeSpan, periodTimeSpan);
-            
-        }
-
-        private void CopyFunction()
         {
-            string sourceDir = @"Q:\quality_data\factory_nextest_log";
-            string destinationDir = textBoxTo.Text;
-            buttonLed.BackColor = Color.Green;
-            string measCode = textBoxMeas.Text;
-
             if (!System.IO.Directory.Exists(sourceDir))
             {
                 MessageBox.Show("Pasta origem não existe ou não foi possivel mapear o driver de rede Q:");
@@ -47,33 +30,51 @@ namespace CopyLog
             }
             else
             {
-                try
-                {
-                    FileInfo fileInfo;
-                    if (!System.IO.Directory.Exists(destinationDir))
-                    {
-                        MessageBox.Show("Pasta destino não existe!!!");
-                    }
-                    else
-                    {
-                        foreach (string file_name in Directory.GetFiles(sourceDir, "*" + measCode + "*", System.IO.SearchOption.AllDirectories))
-                        {
-                            fileInfo = new FileInfo(file_name);
+                labelStatus.Text = "Running...Green Light means Copying Logs";
+                var startTimeSpan = TimeSpan.Zero;
+                var periodTimeSpan = TimeSpan.FromMinutes(0.3);
 
-                            if (!IsFileLocked(fileInfo))
-                                File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
-                        }
-                        buttonLed.BackColor = Color.Red;
-                    }
-                }
-                catch (Exception exc)
+                var timer = new System.Threading.Timer((p) =>
                 {
-                    MessageBox.Show("!! Erro ao tentar copiar os logs" + exc);
+                    CopyFunction();
+
+                }, null, startTimeSpan, periodTimeSpan);
+            }
+        }
+
+        private void CopyFunction()
+        {
+            string destinationDir = textBoxTo.Text;
+            buttonLed.BackColor = Color.Green;
+            string measCode = textBoxMeas.Text;
+            try
+            {
+                FileInfo fileInfo;
+                if (!System.IO.Directory.Exists(destinationDir))
+                {
+                    MessageBox.Show("Pasta destino não existe!!!");
                 }
-                finally {
-                    timerStarting();
+                else
+                {
+                    foreach (string file_name in Directory.GetFiles(sourceDir, "*" + measCode + "*", System.IO.SearchOption.AllDirectories))
+                    {
+                        fileInfo = new FileInfo(file_name);
+
+                        if (!IsFileLocked(fileInfo))
+                            File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
+                    }
+                    buttonLed.BackColor = Color.Red;
                 }
             }
+            catch (Exception exc)
+            {
+                MessageBox.Show("!! Erro ao tentar copiar os logs" + exc);
+            }
+            finally
+            {
+                timerStarting();
+            }
+
         }
         protected virtual bool IsFileLocked(FileInfo file)
         {
