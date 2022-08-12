@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CopyLog));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxMeas = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxTo = new System.Windows.Forms.TextBox();
@@ -42,8 +44,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxMeas = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +63,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Directories:";
+            // 
+            // textBoxMeas
+            // 
+            this.textBoxMeas.Location = new System.Drawing.Point(68, 31);
+            this.textBoxMeas.Name = "textBoxMeas";
+            this.textBoxMeas.Size = new System.Drawing.Size(270, 21);
+            this.textBoxMeas.TabIndex = 7;
+            this.textBoxMeas.Text = ".log_zip";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(0, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 15);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "MeasCode:";
             // 
             // button1
             // 
@@ -172,23 +189,6 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Developed by A. Patricio.";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(0, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 15);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "MeasCode:";
-            // 
-            // textBoxMeas
-            // 
-            this.textBoxMeas.Location = new System.Drawing.Point(68, 31);
-            this.textBoxMeas.Name = "textBoxMeas";
-            this.textBoxMeas.Size = new System.Drawing.Size(270, 21);
-            this.textBoxMeas.TabIndex = 7;
-            this.textBoxMeas.Text = ".log_zip";
-            // 
             // CopyLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,7 +206,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CopyLog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CopyLog App v1.1";
+            this.Text = "CopyLog App v1.2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

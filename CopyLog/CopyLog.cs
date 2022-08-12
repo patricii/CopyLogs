@@ -18,9 +18,8 @@ namespace CopyLog
         {
             Environment.Exit(0);
         }
-
         private void buttonCopy_Click(object sender, EventArgs e)
-        {
+        {          
             labelStatus.Text = "Running...Green Light means Copying Logs";
             var startTimeSpan = TimeSpan.Zero;
             var periodTimeSpan = TimeSpan.FromMinutes(0.3);
@@ -30,6 +29,7 @@ namespace CopyLog
                 CopyFunction();
 
             }, null, startTimeSpan, periodTimeSpan);
+            
         }
 
         private void CopyFunction()
@@ -60,8 +60,8 @@ namespace CopyLog
                         {
                             fileInfo = new FileInfo(file_name);
 
-                            if(!IsFileLocked(fileInfo))
-                            File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
+                            if (!IsFileLocked(fileInfo))
+                                File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
                         }
                         buttonLed.BackColor = Color.Red;
                     }
@@ -69,6 +69,9 @@ namespace CopyLog
                 catch (Exception exc)
                 {
                     MessageBox.Show("!! Erro ao tentar copiar os logs" + exc);
+                }
+                finally {
+                    timerStarting();
                 }
             }
         }
@@ -83,11 +86,22 @@ namespace CopyLog
             }
             catch (IOException)
             {
-               
+
                 return true;
             }
             //file is not locked
             return false;
+        }
+        public void timerStarting()
+        {
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = 15000;
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            buttonCopy.PerformClick();
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
