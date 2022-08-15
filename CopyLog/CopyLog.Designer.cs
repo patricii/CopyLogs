@@ -66,7 +66,7 @@
             // 
             // textBoxMeas
             // 
-            this.textBoxMeas.Location = new System.Drawing.Point(68, 31);
+            this.textBoxMeas.Location = new System.Drawing.Point(68, 24);
             this.textBoxMeas.Name = "textBoxMeas";
             this.textBoxMeas.Size = new System.Drawing.Size(270, 21);
             this.textBoxMeas.TabIndex = 7;
@@ -96,7 +96,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(65, 57);
+            this.label3.Location = new System.Drawing.Point(65, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(237, 18);
             this.label3.TabIndex = 4;
@@ -104,7 +104,7 @@
             // 
             // textBoxTo
             // 
-            this.textBoxTo.Location = new System.Drawing.Point(68, 90);
+            this.textBoxTo.Location = new System.Drawing.Point(68, 87);
             this.textBoxTo.Name = "textBoxTo";
             this.textBoxTo.Size = new System.Drawing.Size(270, 21);
             this.textBoxTo.TabIndex = 3;
@@ -122,7 +122,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-1, 59);
+            this.label1.Location = new System.Drawing.Point(-1, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 15);
             this.label1.TabIndex = 0;
@@ -206,7 +206,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CopyLog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CopyLog App v1.3";
+            this.Text = "CopyLog App v1.5";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

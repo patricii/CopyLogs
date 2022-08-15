@@ -10,6 +10,10 @@ namespace CopyLog
     public partial class CopyLog : Form
     {
         string sourceDir = @"Q:\quality_data\factory_nextest_log";
+        string errorMessageDriverQ = "Pasta origem não existe ou não foi possivel mapear o driver de rede Q:";
+        string errorMessageFolder = "Pasta destino não existe!!!";
+        string destinationDir = string.Empty;
+        private System.Threading.Timer timer;
 
         public CopyLog()
         {
@@ -22,60 +26,58 @@ namespace CopyLog
         }
         private void buttonCopy_Click(object sender, EventArgs e)
         {
+            destinationDir = textBoxTo.Text;
+            int nStatus = -1;
+
             if (!System.IO.Directory.Exists(sourceDir))
             {
-                MessageBox.Show("Pasta origem não existe ou não foi possivel mapear o driver de rede Q:");
+                MessageBox.Show(errorMessageDriverQ);
                 labelStatus.Text = "Offline";
                 buttonLed.BackColor = Color.Red;
+            }
+            else if (!System.IO.Directory.Exists(destinationDir))
+            {
+                MessageBox.Show(errorMessageFolder);
             }
             else
             {
                 labelStatus.Text = "Running...Green Light means Copying Logs";
                 var startTimeSpan = TimeSpan.Zero;
-                var periodTimeSpan = TimeSpan.FromMinutes(0.3);
-
-                var timer = new System.Threading.Timer((p) =>
+                var periodTimeSpan = TimeSpan.FromSeconds(30);
+                timer = new System.Threading.Timer((obj) =>
                 {
-                    CopyFunction();
+                    nStatus = CopyFunction();
 
                 }, null, startTimeSpan, periodTimeSpan);
-            }
-        }
 
-        private void CopyFunction()
+            }
+
+        }
+        private int CopyFunction()
         {
-            string destinationDir = textBoxTo.Text;
+            destinationDir = textBoxTo.Text;
             buttonLed.BackColor = Color.Green;
+            buttonCopy.BackColor = Color.LightBlue;
             string measCode = textBoxMeas.Text;
+            FileInfo fileInfo;
             try
             {
-                FileInfo fileInfo;
-                if (!System.IO.Directory.Exists(destinationDir))
+                foreach (string file_name in Directory.GetFiles(sourceDir, "*" + measCode + "*", System.IO.SearchOption.AllDirectories))
                 {
-                    MessageBox.Show("Pasta destino não existe!!!");
-                }
-                else
-                {
-                    foreach (string file_name in Directory.GetFiles(sourceDir, "*" + measCode + "*", System.IO.SearchOption.AllDirectories))
-                    {
-                        fileInfo = new FileInfo(file_name);
+                    fileInfo = new FileInfo(file_name);
 
-                        if (!IsFileLocked(fileInfo))
-                            File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
-                    }
-                    buttonLed.BackColor = Color.Red;
+                    if (!IsFileLocked(fileInfo))
+                        File.Copy(file_name, destinationDir + file_name.Substring(sourceDir.Length), true);
                 }
+                buttonLed.BackColor = Color.Red;
             }
-            catch (Exception exc)
+            catch (IOException)
             {
-                MessageBox.Show("!! Erro ao tentar copiar os logs" + exc);
+                return 1;
             }
-            finally
-            {
-                timerStarting();
-            }
-
+            return 0;
         }
+
         protected virtual bool IsFileLocked(FileInfo file)
         {
             try
@@ -87,20 +89,19 @@ namespace CopyLog
             }
             catch (IOException)
             {
-
                 return true;
             }
             //file is not locked
             return false;
         }
-        public void timerStarting()
+        private void timerStarting() 
         {
             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = 15000;
+            timer.Interval = 60000;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
-        public void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
             buttonCopy.PerformClick();
         }
