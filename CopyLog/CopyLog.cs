@@ -41,6 +41,7 @@ namespace CopyLog
             }
             else
             {
+                buttonCopy.Text = "Running";
                 labelStatus.Text = "Running...Green Light means Copying Logs";
                 var startTimeSpan = TimeSpan.Zero;
                 var periodTimeSpan = TimeSpan.FromSeconds(30);
@@ -57,7 +58,7 @@ namespace CopyLog
         {
             destinationDir = textBoxTo.Text;
             buttonLed.BackColor = Color.Green;
-            buttonCopy.BackColor = Color.LightBlue;
+            buttonCopy.BackColor = Color.LightGreen;
             string measCode = textBoxMeas.Text;
             FileInfo fileInfo;
             try

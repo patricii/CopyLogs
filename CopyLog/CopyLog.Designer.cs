@@ -142,9 +142,9 @@
             // buttonCopy
             // 
             this.buttonCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCopy.Location = new System.Drawing.Point(12, 158);
+            this.buttonCopy.Location = new System.Drawing.Point(110, 168);
             this.buttonCopy.Name = "buttonCopy";
-            this.buttonCopy.Size = new System.Drawing.Size(392, 37);
+            this.buttonCopy.Size = new System.Drawing.Size(205, 33);
             this.buttonCopy.TabIndex = 2;
             this.buttonCopy.Text = "RUN COPY";
             this.buttonCopy.UseVisualStyleBackColor = true;
