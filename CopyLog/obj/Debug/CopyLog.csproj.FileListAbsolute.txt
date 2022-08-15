@@ -7,4 +7,3 @@ C:\DEVELOPMENT PROJECTS\CopyLog\CopyLog\obj\Debug\CopyLog.csproj.GenerateResourc
 C:\DEVELOPMENT PROJECTS\CopyLog\CopyLog\obj\Debug\CopyLog.csproj.CoreCompileInputs.cache
 C:\DEVELOPMENT PROJECTS\CopyLog\CopyLog\obj\Debug\CopyLog.exe
 C:\DEVELOPMENT PROJECTS\CopyLog\CopyLog\obj\Debug\CopyLog.pdb
-C:\DEVELOPMENT PROJECTS\CopyLog\CopyLog\obj\Debug\CopyLog.csprojAssemblyReference.cache

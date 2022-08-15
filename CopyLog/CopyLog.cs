@@ -12,6 +12,8 @@ namespace CopyLog
         string sourceDir = @"Q:\quality_data\factory_nextest_log";
         string errorMessageDriverQ = "Pasta origem não existe ou não foi possivel mapear o driver de rede Q:";
         string errorMessageFolder = "Pasta destino não existe!!!";
+        string statusMsg = "Running";
+        string ledMsg = "Running...Green Light means Copying Logs";
         string destinationDir = string.Empty;
         private System.Threading.Timer timer;
 
@@ -41,8 +43,8 @@ namespace CopyLog
             }
             else
             {
-                buttonCopy.Text = "Running";
-                labelStatus.Text = "Running...Green Light means Copying Logs";
+                buttonCopy.Text = statusMsg;
+                labelStatus.Text = ledMsg;
                 var startTimeSpan = TimeSpan.Zero;
                 var periodTimeSpan = TimeSpan.FromSeconds(30);
                 timer = new System.Threading.Timer((obj) =>
@@ -94,17 +96,6 @@ namespace CopyLog
             }
             //file is not locked
             return false;
-        }
-        private void timerStarting() 
-        {
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            timer.Interval = 60000;
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
-        }
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            buttonCopy.PerformClick();
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
